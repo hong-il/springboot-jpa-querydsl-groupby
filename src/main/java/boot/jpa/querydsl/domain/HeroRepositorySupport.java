@@ -1,8 +1,13 @@
 package boot.jpa.querydsl.domain;
 
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+import static boot.jpa.querydsl.domain.QHero.hero;
 
 @Repository
 public class HeroRepositorySupport extends QuerydslRepositorySupport {
@@ -17,5 +22,12 @@ public class HeroRepositorySupport extends QuerydslRepositorySupport {
     public HeroRepositorySupport(JPAQueryFactory jpaQueryFactory) {
         super(Hero.class);
         this.jpaQueryFactory = jpaQueryFactory;
+    }
+
+    public List<Integer> getGroupOne() {
+        return jpaQueryFactory.select(Expressions.ONE)
+                .from(hero)
+                .groupBy(hero.age)
+                .fetch();
     }
 }
