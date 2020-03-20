@@ -1,5 +1,6 @@
 package boot.jpa.querydsl.domain;
 
+import boot.jpa.querydsl.query.OrderByNull;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -28,6 +29,14 @@ public class HeroRepositorySupport extends QuerydslRepositorySupport {
         return jpaQueryFactory.select(Expressions.ONE)
                 .from(hero)
                 .groupBy(hero.age)
+                .fetch();
+    }
+
+    public List<Integer> getGroupOneOrderByNull() {
+        return jpaQueryFactory.select(Expressions.ONE)
+                .from(hero)
+                .groupBy(hero.age)
+                .orderBy(OrderByNull.DEFAULT) // order by null
                 .fetch();
     }
 }
