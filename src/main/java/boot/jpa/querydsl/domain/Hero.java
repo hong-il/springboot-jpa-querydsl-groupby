@@ -25,7 +25,6 @@ public class Hero {
 
     private String note;
 
-    @Builder
     public Hero(String name, int age, String note) {
         this.name = name;
         this.age = age;
